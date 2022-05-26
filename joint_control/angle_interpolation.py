@@ -21,8 +21,8 @@
 
 
 from pid import PIDAgent
-from keyframes import hello
-
+from hello import hello
+import numpy as np
 
 class AngleInterpolationAgent(PIDAgent):
     def __init__(self, simspark_ip='localhost',
@@ -31,7 +31,9 @@ class AngleInterpolationAgent(PIDAgent):
                  player_id=0,
                  sync_mode=True):
         super(AngleInterpolationAgent, self).__init__(simspark_ip, simspark_port, teamname, player_id, sync_mode)
+        self.time = 0
         self.keyframes = ([], [], [])
+    
 
     def think(self, perception):
         target_joints = self.angle_interpolation(self.keyframes, perception)
@@ -41,6 +43,23 @@ class AngleInterpolationAgent(PIDAgent):
     def angle_interpolation(self, keyframes, perception):
         target_joints = {}
         # YOUR CODE HERE
+        names = keyframes[0]
+        times = keyframes[1]
+        keys = keyframes[2]
+        
+        if(self.time == 0):
+            self.time = perception.time #to make sure that it starts at corresponding time 
+        
+
+        for index in range(len(names)):
+            xs = times[index] #get each array in times
+            ys = []
+
+            for j in range(len(xs)):
+                ys.append(keys[index][j][0])
+            
+            time_passed = perception.time-self.time
+            target_joints[names[index]] = np.interp(time_passed,xs, ys) #imported interpolate function
 
         return target_joints
 
