@@ -61,6 +61,9 @@ class AngleInterpolationAgent(PIDAgent):
             time_passed = perception.time-self.time
             target_joints[names[index]] = np.interp(time_passed,xs, ys) #imported interpolate function
 
+        if "LHipYawPitch" in target_joints:
+            target_joints["RHipYawPitch"] = target_joints["LHipYawPitch"]
+
         return target_joints
 
 if __name__ == '__main__':
