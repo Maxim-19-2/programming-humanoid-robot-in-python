@@ -22,6 +22,10 @@
 
 from pid import PIDAgent
 from keyframes.hello import hello
+from keyframes.leftBackToStand import leftBackToStand
+from keyframes.leftBellyToStand import leftBellyToStand
+from keyframes.rightBackToStand import rightBackToStand
+from keyframes.rightBellyToStand import rightBellyToStand
 import numpy as np
 
 class AngleInterpolationAgent(PIDAgent):
@@ -38,6 +42,7 @@ class AngleInterpolationAgent(PIDAgent):
     def think(self, perception):
         target_joints = self.angle_interpolation(self.keyframes, perception)
         self.target_joints.update(target_joints)
+        self.target_joints['RHipYawPitch'] = self.target_joints['LHipYawPitch']
         return super(AngleInterpolationAgent, self).think(perception)
 
     def angle_interpolation(self, keyframes, perception):
@@ -61,12 +66,10 @@ class AngleInterpolationAgent(PIDAgent):
             time_passed = perception.time-self.time
             target_joints[names[index]] = np.interp(time_passed,xs, ys) #imported interpolate function
 
-        if "LHipYawPitch" in target_joints:
-            target_joints["RHipYawPitch"] = target_joints["LHipYawPitch"]
-
         return target_joints
 
 if __name__ == '__main__':
     agent = AngleInterpolationAgent()
-    agent.keyframes = hello()  # CHANGE DIFFERENT KEYFRAMES
+    #agent.keyframes = hello()  # CHANGE DIFFERENT KEYFRAMES
+    agent.keyframes = leftBackToStand()
     agent.run()

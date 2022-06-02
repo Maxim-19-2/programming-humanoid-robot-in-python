@@ -41,15 +41,13 @@ class PostureRecognitionAgent(AngleInterpolationAgent):
         
         for joint in joints:
             angles.append(perception.joint[joint])
-            
+    
         angles.append(perception.imu[0])
         angles.append(perception.imu[1])
         angles = np.array([angles])
-        
         predicted = self.posture_classifier.predict(angles)
         
         posture = classes[int(predicted)]
-        print("Ergebnis: " + posture)
         return posture
 
 if __name__ == '__main__':
