@@ -11,7 +11,7 @@
 
 
 from angle_interpolation import AngleInterpolationAgent
-from hello import hello
+from keyframes.hello import hello
 import pickle
 from os import listdir
 import numpy as np

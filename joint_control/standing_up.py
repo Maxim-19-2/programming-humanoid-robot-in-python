@@ -7,8 +7,8 @@
 
 
 from recognize_posture import PostureRecognitionAgent
-from leftBackToStand import leftBackToStand
-from leftBellyToStand import leftBellyToStand
+from keyframes.leftBackToStand import leftBackToStand
+from keyframes.leftBellyToStand import leftBellyToStand
 
 
 class StandingUpAgent(PostureRecognitionAgent):
