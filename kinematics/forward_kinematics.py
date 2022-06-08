@@ -62,21 +62,21 @@ class ForwardKinematicsAgent(PostureRecognitionAgent):
         s = np.sin(joint_angle)
         c = np.cos(joint_angle) 
 
-        if 'Roll' in joint_name: #Rx from slide 9 in kinematics 
+        if 'Roll' in joint_name: #Rx from slide 9 in lecture kinematics 
             T = matrix([
                 [1,0,0,0],
                 [0,c,-s,0],
                 [0,s,c,0],
                 [0,0,0,1]
             ])
-        elif 'Pitch' in joint_name: #Ry from slide 9 in kinematics 
+        elif 'Pitch' in joint_name: #Ry from slide 9 in lecture kinematics 
             T = matrix([
                 [c,0,s,0],
                 [0,1,0,0],
                 [-s,0,c,0],
                 [0,0,0,1]
             ])
-        elif 'Yaw' in joint_name: #Rz from slide 9 in kinematics 
+        elif 'Yaw' in joint_name: #Rz from slide 9 in lecture kinematics 
             T = matrix([
                 [c,s,0,0],
                 [-s,c,0,0],
